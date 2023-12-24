@@ -1,0 +1,43 @@
+@if (todo) {
+  <div class="todo-item">
+    @if (!isEditing) {
+      <div aria-label="Description" class="description" [ngClass]="{ 'line-through' : todo.completed }" (click)="enableEditing()">
+        {{ todo.description }}
+      </div>
+    } @else {
+      <mat-form-field class="description description-edit" style="margin-top: 10px;">
+        <mat-label aria-label="Description">Description</mat-label>
+        <input #descInput matInput [value]="todo.description" 
+          (keyup.enter)="updateDescription(descInput.value)"
+          (keydown.Meta.Enter)="updateDescription(descInput.value)"
+          (blur)="updateDescription(descInput.value)"
+          (keydown.escape)="isEditing = false"/>
+      </mat-form-field>
+    }
+
+    <div id="created-date">
+      <mat-icon aria-hidden="false" aria-label="Created Date" class="material-symbols-outlined">
+        schedule
+      </mat-icon>
+      <div aria-label="Created Date">{{todo.dateCreated | date:'dd/MM/yyyy HH:mm'}}</div>
+    </div>
+
+    <div id="action-buttons">
+      <button mat-mini-fab color="warn" aria-label="Mark as done" class="action-button"
+      matTooltip="Delete" matTooltipPosition="above" (click)="isEditing = false; removeTodo.emit()">
+        <mat-icon>delete</mat-icon>
+      </button>
+      @if (!todo.completed) {
+        <button mat-mini-fab aria-label="Mark as done" class="action-button success"
+          matTooltip="Mark as done" matTooltipPosition="above" (click)="isEditing = false; toggleTodo.emit(true)">
+          <mat-icon>done</mat-icon>
+        </button>
+      } @else {
+        <button mat-mini-fab color="accent" aria-label="Mark as undone" class="action-button"
+          matTooltip="Mark as undone" matTooltipPosition="above" (click)="isEditing = false; toggleTodo.emit(false)">
+          <mat-icon>restart_alt</mat-icon>
+        </button>
+      }
+    </div>
+  </div>
+}

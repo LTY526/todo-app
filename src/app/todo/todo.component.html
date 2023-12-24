@@ -1,0 +1,22 @@
+@if (queryParams | async; as queryParams) {
+  <div class="container">
+    @if (currentPageData$ | async; as currentPageData) {
+      <mat-paginator
+        class="paginator"
+        [length]="currentPageData.total"
+        [hidePageSize]="true"
+        [pageSize]="queryParams.size"
+        (page)="handlePageEvent($event)"
+        aria-label="Select page">
+      </mat-paginator>
+      @for (item of currentPageData.data; track item.dateCreated; let i = $index) {
+        <app-todo-item [todo]="item"
+          (editTodo)="editTodoDescription(item, $event)"
+          (removeTodo)="removeTodo(item.id)"
+          (toggleTodo)="toggleTodoCompleted(item, $event)">
+        </app-todo-item>
+      }
+    }
+  </div>
+}
+

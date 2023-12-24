@@ -1,0 +1,20 @@
+
+
+$container-background-color: #fff8e7;
+
+.container {
+  height: 100%;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.paginator {
+  background-color: $container-background-color;
+}
+
+.paginator ::ng-deep .mat-mdc-paginator-outer-container {
+  max-width: 500px;
+  margin: auto;
+}

@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "description": "This is a new todo",
+    "completed": false,
+    "dateCreated": "2023-12-24T08:32:52.777Z"
+  },
+  {
+    "id": 2,
+    "description": "This is a new todo",
+    "completed": false,
+    "dateCreated": "2023-12-24T08:32:57.767Z"
+  },
+  {
+    "id": 3,
+    "description": "This is a new todo",
+    "completed": false,
+    "dateCreated": "2023-12-24T08:33:01.766Z"
+  },
+  {
+    "id": 4,
+    "description": "This is a new todo",
+    "completed": false,
+    "dateCreated": "2023-12-24T08:33:02.764Z"
+  },
+  {
+    "id": 5,
+    "description": "This is a new todo",
+    "completed": false,
+    "dateCreated": "2023-12-24T08:33:03.762Z"
+  },
+  {
+    "id": 6,
+    "description": "This is a new todo",
+    "completed": false,
+    "dateCreated": "2023-12-24T08:33:04.775Z"
+  },
+  {
+    "id": 7,
+    "description": "This is a new todo",
+    "completed": false,
+    "dateCreated": "2023-12-24T08:33:05.765Z"
+  },
+  {
+    "id": 8,
+    "description": "This is a new todo",
+    "completed": false,
+    "dateCreated": "2023-12-24T08:33:06.772Z"
+  },
+  {
+    "id": 9,
+    "description": "This is a new todo",
+    "completed": false,
+    "dateCreated": "2023-12-24T08:33:07.773Z"
+  },
+  {
+    "id": 10,
+    "description": "This is a new todo",
+    "completed": false,
+    "dateCreated": "2023-12-24T08:33:08.761Z"
+  },
+  {
+    "id": 11,
+    "description": "This is a new todo",
+    "completed": false,
+    "dateCreated": "2023-12-24T08:33:09.768Z"
+  },
+  {
+    "id": 12,
+    "description": "This is a new todo",
+    "completed": false,
+    "dateCreated": "2023-12-24T08:33:10.766Z"
+  }
+]

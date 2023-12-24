@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { TodoListService } from './services/todo-list.service';
-import { BehaviorSubject, Observable, switchMap, tap } from 'rxjs';
+import { BehaviorSubject, Observable, switchMap } from 'rxjs';
 import { QueryParams } from '../models/QueryParams';
 import { Todo } from '../models/Todo';
 import { QueryResult } from '../models/QueryResult';

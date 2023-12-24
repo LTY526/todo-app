@@ -1,5 +1,11 @@
 @if (queryParams | async; as queryParams) {
   <div class="container">
+    <mat-form-field class="description description-edit" style="margin-top: 10px;">
+      <mat-label aria-label="Description">New Todo</mat-label>
+      <input #descInput matInput 
+        (keyup.enter)="addNewTodo(descInput.value); descInput.value = ''"
+        (keydown.Meta.Enter)="addNewTodo(descInput.value); descInput.value = ''"/>
+    </mat-form-field>
     @if (currentPageData$ | async; as currentPageData) {
       <mat-paginator
         class="paginator"

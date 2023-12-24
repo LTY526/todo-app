@@ -14,12 +14,13 @@ import { PageEvent } from '@angular/material/paginator';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TodoComponent {
-  queryParams = new BehaviorSubject<QueryParams>({
+  queryParams = new BehaviorSubject<QueryParams<Todo>>({
     page: 1,
     size: 5,
     searchTerm: '',
     sortBy: 'id',
     sortDirection: 'desc',
+    predicates: [(item: Todo) => item.completed === false],
   });
 
   currentPageData$: Observable<QueryResult<Todo>>;
@@ -30,47 +31,23 @@ export class TodoComponent {
   ) {
     this.currentPageData$ = this.queryParams.pipe(
       switchMap((params) => this.todoListSvc.getTodoList$(params)),
-      tap((data) => {
-        const totalPages = Math.ceil(data.total / this.queryParams.getValue().size);
-        console.log(`There are ${totalPages} page(s).`);
-        console.log(data);
-      })
     );
-
-    // setInterval(() => {
-    //   this.todoListSvc.addTodo({
-    //     id: 999,
-    //     title: 'New Todo',
-    //     description: 'This is a new todo',
-    //     completed: false,
-    //     dateCreated: new Date(),
-    //   })
-    // }, 1000)
-
-    // setTimeout(() => {
-    //   this.queryParams.next({
-    //     page: 1,
-    //     size: 99,
-    //     searchTerm: '',
-    //     sortBy: '',
-    //     sortDirection: 'asc',
-    //   });
-    // }, 8000)
   }
 
-  switchPage(page: number): void {
+  handlePageEvent(pageEvent: PageEvent) {
     this.queryParams.next({
       ...this.queryParams.getValue(),
-      page,
+      page: pageEvent.pageIndex + 1,
+      size: pageEvent.pageSize,
     });
   }
 
-  handlePageEvent(e: PageEvent) {
-    this.queryParams.next({
-      ...this.queryParams.getValue(),
-      page: e.pageIndex + 1,
-      size: e.pageSize,
-    });
+  addNewTodo(description: string): void {
+    if (description.trim() == '') {
+      return;
+    }
+    this.todoListSvc.addTodo(description);
+    this.snackBarSvc.open('Added!');
   }
 
   editTodoDescription(todo: Todo, newDescription: string): void {

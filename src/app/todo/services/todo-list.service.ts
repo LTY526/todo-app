@@ -23,16 +23,15 @@ export class TodoListService {
     });
   }
 
-  getTodoList$(queryParams: QueryParams): Observable<QueryResult<Todo>> { 
+  getTodoList$(queryParams: QueryParams<Todo>): Observable<QueryResult<Todo>> { 
     return this.todoListSubject.asObservable().pipe(
       map((td) => {
-        const total = td.length;
+        let todos = [...td];
         if (queryParams.searchTerm) {
-          td = td.filter((t) => t.description.includes(queryParams.searchTerm));
+          todos = todos.filter((t) => t.description.includes(queryParams.searchTerm));
         }
         if (queryParams.sortBy) {
-          td = td.sort((a, b) => {
-            console.log(a[queryParams.sortBy as keyof Todo] < b[queryParams.sortBy as keyof Todo]);
+          todos = todos.sort((a, b) => {
             if (a[queryParams.sortBy as keyof Todo] < b[queryParams.sortBy as keyof Todo]) {
               return queryParams.sortDirection === 'asc' ? -1 : 1;
             }
@@ -42,12 +41,18 @@ export class TodoListService {
             return 0;
           });
         }
+        if (queryParams.predicates) {
+          queryParams.predicates.forEach((predicate) => {
+            todos = todos.filter(predicate);
+          });
+        }
+        const total = todos.length;
         // const lastPage = Math.ceil(total / queryParams.size);
         // const currentPage = Math.min(queryParams.page, lastPage);
         // const startIndex = (currentPage - 1) * queryParams.size;
         // const endIndex = Math.min(startIndex + queryParams.size, total);
         // return { data: td.slice(startIndex, endIndex), total };
-        return { data: td.slice((queryParams.page - 1) * queryParams.size, queryParams.page * queryParams.size), total };
+        return { data: todos.slice((queryParams.page - 1) * queryParams.size, queryParams.page * queryParams.size), total };
       })
     ); 
   }
@@ -55,13 +60,13 @@ export class TodoListService {
   addTodo(description: string): void {
     const currentTodos = this.todoListSubject.getValue();
     const id = currentTodos.length > 0 ? currentTodos[currentTodos.length - 1].id + 1 : 1;
-    currentTodos.push({
+    const todo = {
       id: id,
       completed: false,
       dateCreated: new Date(),
       description,
-    });
-    this.todoListSubject.next(currentTodos);
+    }
+    this.todoListSubject.next([...currentTodos, todo]);
   }
 
   editTodo(id: number, updatedTodo: Todo): void {

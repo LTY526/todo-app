@@ -7,6 +7,7 @@ import { TodoListService } from './services/todo-list.service';
 import { TodoItemComponent } from './todo-item/todo-item.component';
 
 import { MatButtonModule } from '@angular/material/button';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -15,6 +16,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 
 const MaterialModules = [
   MatButtonModule,
+  MatButtonToggleModule,
   MatIconModule,
   MatInputModule,
   MatPaginatorModule,

@@ -5,7 +5,7 @@ import { QueryParams } from '../models/QueryParams';
 import { Todo } from '../models/Todo';
 import { QueryResult } from '../models/QueryResult';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { PageEvent } from '@angular/material/paginator';
+import { PageEvent } from '@angular/material/paginator'
 
 @Component({
   selector: 'app-todo',
@@ -20,7 +20,8 @@ export class TodoComponent {
     searchTerm: '',
     sortBy: 'id',
     sortDirection: 'desc',
-    predicates: [(item: Todo) => item.completed === false],
+    predicates: [],
+    // (item: Todo) => item.completed === false
   });
 
   currentPageData$: Observable<QueryResult<Todo>>;
@@ -63,5 +64,16 @@ export class TodoComponent {
   toggleTodoCompleted(todo: Todo, completed: boolean): void {
     this.todoListSvc.editTodo(todo.id, { ...todo, completed });
     this.snackBarSvc.open(`Marked as ${ completed ? 'completed' : 'incomplete' }!`);
+  }
+
+  toggleShowCompletedOnly(showCompletedOnly: boolean | null): void {
+    this.queryParams.next({
+      ...this.queryParams.getValue(),
+      predicates: showCompletedOnly === true
+        ? [(item: Todo) => item.completed === true]
+        : showCompletedOnly === false 
+          ? [(item: Todo) => item.completed === false]
+          : [],
+    });
   }
 }

@@ -1,20 +1,28 @@
 @if (queryParams | async; as queryParams) {
   <div class="container">
     <mat-form-field class="description description-edit" style="margin-top: 10px;">
-      <mat-label aria-label="Description">New Todo</mat-label>
+      <mat-label aria-label="Description">Type in your new todo...</mat-label>
       <input #descInput matInput 
         (keyup.enter)="addNewTodo(descInput.value); descInput.value = ''"
         (keydown.Meta.Enter)="addNewTodo(descInput.value); descInput.value = ''"/>
     </mat-form-field>
     @if (currentPageData$ | async; as currentPageData) {
-      <mat-paginator
-        class="paginator"
-        [length]="currentPageData.total"
-        [hidePageSize]="true"
-        [pageSize]="queryParams.size"
-        (page)="handlePageEvent($event)"
-        aria-label="Select page">
-      </mat-paginator>
+      <div class="options">
+        <mat-button-toggle-group class="toggle" (change)="toggleShowCompletedOnly($event.value)">
+          <mat-button-toggle [value]="true">Completed</mat-button-toggle>
+          <mat-button-toggle [value]="false">Incomplete</mat-button-toggle>
+          <mat-button-toggle [value]="null">All</mat-button-toggle>
+        </mat-button-toggle-group>
+        <mat-paginator
+          class="paginator"
+          [length]="currentPageData.total"
+          [hidePageSize]="true"
+          [pageSize]="queryParams.size"
+          (page)="handlePageEvent($event)"
+          aria-label="Select page">
+        </mat-paginator>
+      </div>
+
       @for (item of currentPageData.data; track item.dateCreated; let i = $index) {
         <app-todo-item [todo]="item"
           (editTodo)="editTodoDescription(item, $event)"
@@ -25,4 +33,3 @@
     }
   </div>
 }
-

@@ -3,8 +3,9 @@
 $container-background-color: #fff8e7;
 
 .container {
+  box-sizing: border-box;
   height: 100%;
-  padding: 0 20px;
+  padding: 60px 100px;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -15,6 +16,23 @@ $container-background-color: #fff8e7;
 }
 
 .paginator ::ng-deep .mat-mdc-paginator-outer-container {
+  // max-width: 300px;
+  // margin: auto;
+}
+
+.description ::ng-deep div {
   max-width: 500px;
   margin: auto;
+}
+
+.toggle {
+  width: fit-content;
+}
+
+.options {
+  display: flex;
+  justify-content: space-evenly;
+  // max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
 }
